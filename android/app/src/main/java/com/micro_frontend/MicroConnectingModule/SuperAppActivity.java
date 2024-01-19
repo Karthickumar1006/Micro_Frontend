@@ -24,7 +24,7 @@ public class SuperAppActivity extends ReactActivity implements DefaultHardwareBa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mInstance = this;
-        Log.d("Testin","Testingssssss");
+
         Bundle bundle = getIntent().getExtras();
         assert bundle !=null;
         mMainComponentName  = bundle.getString("bundleName","");
@@ -32,7 +32,10 @@ public class SuperAppActivity extends ReactActivity implements DefaultHardwareBa
         Bundle initProps = bundle.getBundle("initProps");
         ReactRootView mReactRootView = new ReactRootView(this);
         String appPath = bundle.getString("appPath","");
-
+        Log.d("Testing1",mMainComponentName);
+        Log.d("Testing2", String.valueOf(devLoad));
+        Log.d("Testing3", String.valueOf(initProps));
+        Log.d("Testing4",appPath);
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
                 .setJavaScriptExecutorFactory(new HermesExecutorFactory())
@@ -44,6 +47,7 @@ public class SuperAppActivity extends ReactActivity implements DefaultHardwareBa
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();
         mReactRootView.startReactApplication(mReactInstanceManager, mMainComponentName, initProps);
+        Log.d("Testing5", String.valueOf(mReactRootView));
         setContentView(mReactRootView);
                 }
 

@@ -45,6 +45,7 @@ public class ConnectingNativeModule extends ReactContextBaseJavaModule {
         bundle.putBoolean("devLoad", devLoad);
         bundle.putBundle("initProps", Arguments.toBundle(initProps));
         appIntent.putExtras(bundle);
+           Log.d("Testingggg","ClickMe=====>"+bundle);
         reactContext.startActivity(appIntent);
         addBridge(bundleName);
         _closeCallback = appCallback;
@@ -52,6 +53,7 @@ public class ConnectingNativeModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void addBridge(String bundleName) {
+           Log.d("Testingggg","Clic=====>"+bundleName);
         _reactContexts.put(bundleName, reactContext);
     }
 

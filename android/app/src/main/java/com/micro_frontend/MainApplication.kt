@@ -10,19 +10,26 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.flipper.ReactNativeFlipper
+import com.facebook.react.shell.MainReactPackage
 import com.facebook.soloader.SoLoader
 import com.micro_frontend.MicroConnectingModule.ConnectNativePackage
+import com.swmansion.rnscreens.RNScreensPackage
 
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
       object : DefaultReactNativeHost(this) {
-        override fun getPackages(): List<ReactPackage> =
-            PackageList(this).packages.apply {
-              // Packages that cannot be autolinked yet can be added manually here, for example:
-              // add(MyReactNativePackage())
-              add(ConnectNativePackage())
-            }
+        override fun getPackages(): List<ReactPackage> {
+          val packages: MutableList<ReactPackage> = PackageList(this).packages.toMutableList()
+
+          // Packages that cannot be autolinked yet can be added manually here
+          packages.add(RNScreensPackage())
+          packages.add(ConnectNativePackage())
+
+
+
+          return packages
+        }
 
         override fun getJSMainModuleName(): String = "index"
 

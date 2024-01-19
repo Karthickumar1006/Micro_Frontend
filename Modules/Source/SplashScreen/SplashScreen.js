@@ -1,61 +1,88 @@
-import React , {useCallback, useState} from 'react';
-import {View, TouchableOpacity,  Platform, Text, Alert,  NativeModules,BackHandler} from 'react-native';
+import React, {useCallback, useEffect} from 'react';
+import {View, TouchableOpacity, Text, NativeModules, Image,Platform} from 'react-native';
 
 const {MicroFrontend} = NativeModules;
 
-const SplashScreen = ({ navigation }) => {
-  
-  const handlePressReg =  useCallback(
-    async () => {
-     console.log("Testing",Platform.OS);
-     
-      
-     MicroFrontend?.OpenSuperApp(
-        'Register',
-        `index.${Platform.OS}-reg.bundle`,
-        {
-          initialValue : "Login Details====>",
-          initialValue1:"Testing",
-        },
-        false,
-        () => {},
-      );
-      console.log("Testing2");
+const SplashScreen = ({navigation}) => {
+
+  const handleRegisterPress = useCallback(async () => {
+    console.log("MicroFrontend===>","platfrom====>"+Platform.OS);
+    try {
+      setTimeout(() => {
+        MicroFrontend?.OpenSuperApp(
+          'Sample',
+          `index.${Platform.OS}-log.bundle`,
+          {
+           text:'testing'
+          },
+          false,
+          () => {},
+        );
+      }, 2000);
+    
       const result = await MicroFrontend?.getBundleNames();
+      console.log("MicroFrontend===>","result====>"+result);
       return result;
-    },
-    [],
-  );
+    } catch (error) {
+      console.log("MicroFrontend===>","Error====>"+error);
+
+      console.error('Error:', error);
+    }
+  }, []);
 
   return (
-    <View>
-      <View
-        style={{
-          padding: 10,
-          backgroundColor: 'green',
-          borderRadius: 5,
-          margin: '5%',
-        }}>
-        <TouchableOpacity onPress={() => handlePressReg()}>
-          <Text style={{color: 'white', textAlign: 'center'}}>{"Register"}</Text>
-        </TouchableOpacity>
+    <View style={styles.container}>
+      <View style={styles.greenBox}>
+        <Image
+          source={{
+            uri: 'https://addons-media.operacdn.com/media/CACHE/images/themes/35/141135/1.0-rev1/images/1b300742-c5bb-48c1-8ed5-a3b5844eccff/5d13c593ac284398051caeae62ad59ea.jpg',
+          }}
+          style={{width: '100%', height: '100%', resizeMode: 'contain'}}
+        />
       </View>
 
-      <View
-        style={{
-          padding: 10,
-          backgroundColor: 'blue',
-          borderRadius: 5,
-          margin: '5%',
-        }}>
-        <TouchableOpacity onPress={()=>{
-         navigation.navigate('Login')
-        }}>
-          <Text style={{color: 'white', textAlign: 'center'}}>Login</Text>
-        </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <CustomButton onPress={handleRegisterPress} text="Register" />
+        <CustomButton
+          onPress={() => {
+            navigation.navigate('Login');
+          }}
+          text="Login"
+        />
       </View>
     </View>
   );
+};
+
+const CustomButton = ({onPress, text}) => (
+  <View style={styles.buttonWrapper}>
+    <TouchableOpacity onPress={onPress}>
+      <Text style={styles.buttonText}>{text}</Text>
+    </TouchableOpacity>
+  </View>
+);
+
+const styles = {
+  container: {
+    flex: 1,
+    backgroundColor: '#000',
+  },
+  greenBox: {
+    flex: 1,
+  },
+  buttonContainer: {
+    flex: 0.3,
+  },
+  buttonWrapper: {
+    padding: '3%',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginHorizontal: '5%',
+    marginVertical: '3%',
+  },
+  buttonText: {
+    textAlign: 'center',
+  },
 };
 
 export default SplashScreen;
