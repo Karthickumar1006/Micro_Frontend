@@ -12,9 +12,9 @@ const App = () => {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{title: 'Welcome'}}
+          options={{ title: 'Welcome' }}
         />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+    
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -31,7 +31,4 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
       }
     />
   );
-};
-const ProfileScreen = ({route}: {route: any}) => {
-  return <Text>This is {route.params.name}'s profile</Text>;
 };

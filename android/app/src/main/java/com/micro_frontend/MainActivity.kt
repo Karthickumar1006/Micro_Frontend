@@ -12,9 +12,11 @@ class MainActivity : ReactActivity() {
    * rendering of the component.
    */
   override fun getMainComponentName(): String = "Micro_Frontend"
-   override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(null)
-        // Your code here
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        savedInstanceState?.remove("android:support:fragments")
+        savedInstanceState?.remove("android:fragments")
+        super.onCreate(savedInstanceState)
     }
   /**
    * Returns the instance of the [ReactActivityDelegate]. We use [DefaultReactActivityDelegate]

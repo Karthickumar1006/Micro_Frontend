@@ -8,24 +8,23 @@ const SplashScreen = ({navigation}) => {
   const handleRegisterPress = useCallback(async () => {
     console.log("MicroFrontend===>","platfrom====>"+Platform.OS);
     try {
-      setTimeout(() => {
+      
         MicroFrontend?.OpenSuperApp(
           'Sample',
           `index.${Platform.OS}-log.bundle`,
           {
-           text:'testing'
+           text:''
           },
           false,
           () => {},
         );
-      }, 2000);
+   
     
       const result = await MicroFrontend?.getBundleNames();
-      console.log("MicroFrontend===>","result====>"+result);
+      console.log("MicroFrontend===>","result====>"+JSON.stringify(result));
       return result;
     } catch (error) {
       console.log("MicroFrontend===>","Error====>"+error);
-
       console.error('Error:', error);
     }
   }, []);

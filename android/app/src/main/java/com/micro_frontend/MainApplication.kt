@@ -10,7 +10,6 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.flipper.ReactNativeFlipper
-import com.facebook.react.shell.MainReactPackage
 import com.facebook.soloader.SoLoader
 import com.micro_frontend.MicroConnectingModule.ConnectNativePackage
 import com.swmansion.rnscreens.RNScreensPackage
@@ -23,10 +22,9 @@ class MainApplication : Application(), ReactApplication {
           val packages: MutableList<ReactPackage> = PackageList(this).packages.toMutableList()
 
           // Packages that cannot be autolinked yet can be added manually here
-          packages.add(RNScreensPackage())
+
           packages.add(ConnectNativePackage())
-
-
+          packages.add(RNScreensPackage())
 
           return packages
         }
